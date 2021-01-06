@@ -1,23 +1,25 @@
 import React, { Component } from "react";
+import { useGoogleLogin } from 'react-google-login'
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import DashBoard from "./components/Dashboard";
+import Joe from "./components/Joe";
 
 export default class App extends Component {
-  constructor() {
+  constructor({signIn, loaded}) {
     super();
-
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {}
     };
     this.handleLogin = this.handleLogin.bind(this);
   }
-  handleLogin(profile) {
+  handleLogin(data) {
     this.setState({
       loggedInStatus: "LOGGED_IN",
-      user: profile
+      user: data
     });
+
   }
   render() {
     return (
@@ -45,9 +47,20 @@ export default class App extends Component {
                 />
               )}
             />
+            {/* <Route
+              exact
+              path={"/joe"}
+              render={(props) => (
+                <Joe
+                  {...props}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )}
+            /> */}
           </Switch>
         </BrowserRouter>
       </div>
     );
   }
 }
+
